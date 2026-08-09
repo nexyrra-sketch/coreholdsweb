@@ -380,9 +380,9 @@ export function RentLedger() {
           <div className="flex flex-wrap items-start justify-between gap-8">
             <div className="max-w-[44ch]">
               <p className="tag text-oxide-deep">Now set the other side</p>
-              <h3 className="mt-5 text-minor text-quarry-950">
+              <h2 className="mt-5 text-minor text-quarry-950">
                 What would owning it cost instead?
-              </h3>
+              </h2>
               <p className="mt-4 text-[0.9375rem] leading-relaxed text-quarry-700">
                 We will not put a Corehold number here — we do not have one
                 until we have audited your business. So set your own. The

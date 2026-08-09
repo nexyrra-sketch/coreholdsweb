@@ -15,6 +15,7 @@ const routes: Route[] = [
   { path: "/ownership", priority: 0.9, changeFrequency: "monthly", ar: "/ar/ownership" },
   { path: "/register", priority: 0.9, changeFrequency: "monthly" },
   { path: "/specimen", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/ledger", priority: 0.85, changeFrequency: "monthly" },
   { path: "/capabilities", priority: 0.8, changeFrequency: "monthly", ar: "/ar/capabilities" },
   { path: "/audit", priority: 0.8, changeFrequency: "yearly", ar: "/ar/audit" },
   { path: "/standard", priority: 0.8, changeFrequency: "monthly" },

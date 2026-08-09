@@ -306,6 +306,60 @@
   animation: corehold-settle 0.9s var(--ease-structural) both;
 }
 
+/* -------------------------------------------------------------- stage ---- */
+/* The homepage runs over a live 3D scene. Copy needs to stay readable without
+   dropping a slab of colour over the drawing, so each block sits on a soft
+   directional scrim that fades out before it reaches the object. */
+
+.scrim-start {
+  position: relative;
+}
+
+.scrim-start::before {
+  content: "";
+  position: absolute;
+  inset: -4rem -6rem -4rem -8rem;
+  background: radial-gradient(
+    75% 70% at 20% 50%,
+    color-mix(in srgb, var(--color-quarry-950) 97%, transparent) 0%,
+    color-mix(in srgb, var(--color-quarry-950) 88%, transparent) 42%,
+    color-mix(in srgb, var(--color-quarry-950) 55%, transparent) 66%,
+    transparent 82%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.scrim-end::before {
+  background: radial-gradient(
+    75% 70% at 80% 50%,
+    color-mix(in srgb, var(--color-quarry-950) 97%, transparent) 0%,
+    color-mix(in srgb, var(--color-quarry-950) 88%, transparent) 42%,
+    color-mix(in srgb, var(--color-quarry-950) 55%, transparent) 66%,
+    transparent 82%
+  );
+}
+
+/* A pane that floats over the scene without hiding it entirely. */
+.pane {
+  background: color-mix(in srgb, var(--color-quarry-950) 74%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-quarry-200) 12%, transparent);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .pane {
+    background: var(--color-quarry-950);
+  }
+}
+
+/* A button that leans toward the pointer. Applied to one element on the site. */
+.magnet {
+  transition: transform 0.35s var(--ease-structural);
+  will-change: transform;
+}
+
 /* ---------------------------------------------------------------- rtl ---- */
 /* The Arabic edition is not the English one flipped. Arabic script joins, so it
    must never be tracked — every letter-spaced class in this system is

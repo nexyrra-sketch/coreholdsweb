@@ -8,12 +8,12 @@
 
 export const measured = {
   buildDate: "2026-08-09",
-  routes: 21,
+  routes: 22,
   nextVersion: "15.5",
   reactVersion: "19.2",
   sharedJs: "103 kB",
-  heaviestRoute: { path: "/", value: "123 kB" },
-  lightestRoute: { path: "/capabilities", value: "107 kB" },
+  heaviestRoute: { path: "/ledger", value: "116 kB" },
+  lightestRoute: { path: "/ar", value: "107 kB" },
   runtimeDependencies: 3,
   totalDependencies: 3,
   fontFiles: 6,
@@ -22,10 +22,10 @@ export const measured = {
   cookies: 0,
   trackers: 0,
   images: 1,
-  prerenderedRoutes: 20,
+  prerenderedRoutes: 21,
   axeViolations: 0,
   axeRuleSets: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"],
-  axePages: 17,
+  axePages: 18,
   axeViewports: ["1440px", "390px"],
 } as const;
 
@@ -56,6 +56,11 @@ export const budgets: [string, string, string][] = [
     "One: the Open Graph card, which never loads in the page. Every mark, diagram and chart is vector or canvas.",
   ],
   [
+    "The homepage, in full",
+    "7.3 kB",
+    "Including the live 3D scene, the kill-switch demonstration and both counters. The 3D costs about four kilobytes of that, because it is written against WebGL2 directly rather than imported.",
+  ],
+  [
     "Latin critical font weight",
     "64 kB",
     "Three files, self-hosted. The Arabic face loads only on the Arabic edition and never blocks a Latin page.",
@@ -69,8 +74,12 @@ export const budgets: [string, string, string][] = [
 
 export const decisions: [string, string][] = [
   [
-    "Canvas, not WebGL",
-    "The dependency graph is fourteen nodes and twenty-six edges. A GPU pipeline for that would be a costume, not an engineering decision. Hand-written 2D canvas draws it in about four kilobytes and runs at frame rate on a five-year-old phone.",
+    "WebGL2 by hand, not a 3D library",
+    "The homepage runs a real 3D scene: fourteen cubes tumbling in space that lock into the mark as you scroll. There is an excellent library for this and the site does not use it, because importing six hundred kilobytes to draw fifteen lit cubes would make the dependency count on this page a lie. Roughly 200 lines of matrix maths, one shader, one cube mesh, fifteen draw calls a frame.",
+  ],
+  [
+    "The homepage argues once, then stops",
+    "An earlier version of this page carried every section the site has. It was complete and it was exhausting. The homepage now runs six beats — one idea each, one screen each — and every piece of depth lives on the page built for it. Nothing was deleted; it was moved somewhere a reader arrives on purpose.",
   ],
   [
     "Seeded randomness",

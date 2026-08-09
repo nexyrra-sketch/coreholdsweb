@@ -10,6 +10,7 @@ import { Arrow, ButtonLink } from "./Button";
 const year = new Date().getFullYear();
 
 const EN_EXTRA = [
+  { href: "/ledger", label: "The Ledger" },
   { href: "/register", label: "The Register" },
   { href: "/specimen", label: "Specimen Audit" },
   { href: "/standard", label: "The Standard" },

@@ -87,19 +87,49 @@ across "core" and "hold" — that is the cheap move; the mark carries the idea.
 `HeroDiagram.tsx` renders the mark at architectural scale, dimensioned and
 annotated as a detail on a drawing sheet, rather than using stock illustration.
 
-## 5. The four set pieces
+## 5. The homepage is a sequence, not a document
 
-Four things on this site do the arguing. Each is hand-written; none of them
+The homepage does not try to say everything. It runs six beats, one idea and
+one screen each, over a single continuous 3D scene:
+
+1. **The hook** — the claim, the call to action, and a meter quietly accruing
+   the cost of the example rented stack while you read.
+2. **The arithmetic** — one number, counting up. Equity acquired: none.
+3. **The proof** — the kill-switch. Two identical systems; stop paying.
+4. **The alternative** — the cubes lock into one core.
+5. **The ending** — the deed, not a login.
+6. **The method, then the ask** — five stages, then one door.
+
+Everything else the studio has to say lives on the page built for it, linked
+from the sequence and from the index at the foot. That is the whole editorial
+principle here: a homepage that argues once and then gets out of the way beats
+a homepage that argues six times.
+
+## 6. The Core — real 3D, written by hand
+
+`components/CoreScene.tsx` over `lib/gl.ts`.
+
+Fourteen cubes tumble in space. As the page scrolls they stop tumbling, find
+their axes and lock into the two brackets that hold the core — the mark, built
+in front of you, from a mess. The camera dollies in as the structure resolves,
+the object walks across the screen so it never fights the column the copy is in,
+and it withdraws into the distance while the kill-switch has the stage.
+
+It is written directly against WebGL2: about 200 lines of matrix maths, one
+shader, one cube mesh, fifteen draw calls a frame. There is an excellent 3D
+library available and this project does not use it, because `/system` publishes
+the dependency count as evidence and a 600 kB import would have made that page
+dishonest. The whole scene costs roughly four kilobytes.
+
+The rotation is deliberately bounded rather than free-spinning: a planar glyph
+turned ninety degrees is a line, and the payoff here is recognising the mark.
+Without WebGL2, or under `prefers-reduced-motion`, it renders one still frame
+of the resolved state and nothing moves.
+
+## 7. The set pieces
+
+Three more things on this site do the arguing. Each is hand-written; none of them
 pulled in a dependency.
-
-**The Dependency Graph** (`components/DependencyGraph.tsx`) — a scroll-driven
-canvas on the homepage. Fourteen rented providers jitter in a cross-wired mess,
-with orange marks crawling along the broken bridges between them: those are
-people, moving data by hand. Scroll, and the whole thing collapses into one
-core with clean radial reads. Seeded PRNG so the mess is identical on every
-load; the rAF loop is gated by an IntersectionObserver; scroll position is read
-into a ref, never into state. Under reduced motion the section stops being
-scroll-driven and renders one composed frame of the resolved state.
 
 **The Landlord Switch** (`components/LandlordSwitch.tsx`) — two identical
 systems, both running. The visitor stops paying. The rented one goes out row by
@@ -122,7 +152,7 @@ lines of hand-written PDF writer, with the mark drawn as vector paths and a
 vector chart of both curves. Nothing is uploaded, nothing is stored, and no
 Corehold price appears anywhere on it.
 
-## 6. The craft layer
+## 8. The craft layer
 
 - **Boot sequence** — one second, once per session. The brackets draw, the core
   seats, the sheet lifts. Never under reduced motion, dismissible by any key or
@@ -152,7 +182,7 @@ Corehold price appears anywhere on it.
   arrive. On a slow phone it will not flatter us; publishing it anyway is the
   point.
 
-## 7. Layout language
+## 9. Layout language
 
 - A faint 88px structural grid (`.gridfilm`) sits behind the grounds — the
   drawing sheet under the drawing.
@@ -166,7 +196,7 @@ Corehold price appears anywhere on it.
   motion system is one CSS file plus one `IntersectionObserver` hook — no
   animation library.
 
-## 8. What the site publishes
+## 10. What the site publishes
 
 The studio's credibility problem is that it has no client work to show. Rather
 than paper over it, the site publishes five things that can be judged directly.
@@ -198,7 +228,7 @@ arrive fractionally loose and tighten as they land.
 contrast ratios, type scale, motion spec and voice guide — plus the brand book,
 letterhead and proposal template as downloadable PDFs from the same engine.
 
-## 9. The Arabic edition
+## 11. The Arabic edition
 
 `/ar` is not the English site flipped. The argument is re-made in Modern
 Standard Arabic across five pages (home, method, ownership, capabilities,
@@ -221,7 +251,7 @@ Direction is settled by an inline script in `<head>` before first paint, so an
 Arabic page never renders left-to-right for a frame, and re-applied on client
 navigation. `hreflang` alternates are declared in metadata and in the sitemap.
 
-## 10. Honesty constraints
+## 12. Honesty constraints
 
 Corehold is early and has no published clients. **Nothing on this site invents
 proof.**
@@ -237,7 +267,7 @@ proof.**
 If you add proof later, replace that reserved block — do not quietly delete the
 honesty note and drop logos in.
 
-## 11. Stack
+## 13. Stack
 
 - Next.js 15 (App Router) · React 19 · TypeScript (strict)
 - Tailwind CSS v4, with the design system defined as `@theme` tokens in
@@ -255,7 +285,7 @@ reasoning behind each engineering decision, the full token table, and the
 commands to verify all of it. When the build changes, `src/data/system.ts`
 changes with it.
 
-## 12. Running it
+## 14. Running it
 
 ```bash
 npm install
@@ -270,7 +300,7 @@ Deploys as-is to Vercel, or to any Node host via `npm run build && npm run start
 Set the production origin in `src/lib/site.ts` (`site.url`) before launch — it
 feeds canonical URLs, `sitemap.xml`, `robots.txt`, and the Open Graph tags.
 
-## 13. Wiring the audit form
+## 15. Wiring the audit form
 
 The form flow — validation, states, confirmation, error handling — is complete,
 and submissions genuinely reach `src/app/api/audit-request/route.ts`. That route
@@ -278,7 +308,7 @@ validates and shapes the payload and then logs it. One TODO remains at the
 bottom of the file: deliver the submission to an inbox, a CRM, or a database.
 Nothing in `AuditForm.tsx` needs to change when you connect it.
 
-## 14. SEO
+## 16. SEO
 
 - Per-page `title` / `description`, canonical URLs, Open Graph and Twitter cards
 - `public/og.png` (1200×630), generated from the site's own tokens by
@@ -289,9 +319,9 @@ Nothing in `AuditForm.tsx` needs to change when you connect it.
   `robots.ts`
 - One `<h1>` per page, ordered heading hierarchy, semantic landmarks throughout
 
-## 15. Accessibility & QA
+## 17. Accessibility & QA
 
-The site passes **axe-core with zero violations** across all seventeen pages at
+The site passes **axe-core with zero violations** across all eighteen pages at
 both 1440px and 390px, under `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` and
 `best-practice` rule sets — set pieces and the Arabic edition included.
 
@@ -317,7 +347,7 @@ node scripts/qa.mjs       # focus states, keyboard nav, form success flow
 node scripts/og.mjs       # regenerate public/og.png
 ```
 
-## 16. Where things are
+## 18. Where things are
 
 ```
 src/
@@ -326,6 +356,7 @@ src/
     method/               the five-stage method, in full
     ownership/            the own-vs-rent argument, with its own limits stated
     capabilities/         the five layers, in detail
+    ledger/               the rent ledger and ownership model
     register/             build-or-rent verdicts, 43 categories, versioned
     specimen/             a complete worked audit, published
     standard/             commitments and terms, v1.0
@@ -340,6 +371,7 @@ src/
   data/                   all site copy, English and Arabic
   fonts/                  vendored woff2, Latin and Arabic
   lib/
+    gl.ts                 the WebGL2 layer: matrices, shader, cube mesh
     motion.ts             seeded PRNG, easing, scroll progress, rAF loop
     pdf.ts                the PDF writer, with AFM metrics and multi-page
     pdfChrome.ts          shared document furniture

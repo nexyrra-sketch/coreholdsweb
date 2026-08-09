@@ -119,8 +119,8 @@ function buildIndex(): Entry[] {
       id: "a-ledger",
       group: "Actions",
       label: "Price your own stack",
-      hint: "The rent ledger",
-      href: "/#ledger",
+      hint: "The rent ledger, and a PDF to take away",
+      href: "/ledger",
     },
     ...stages.map((stage) => ({
       id: `s-${stage.code}`,
@@ -147,7 +147,7 @@ function buildIndex(): Entry[] {
       id: `f-${i}`,
       group: "Questions",
       label: item.question,
-      href: "/#faq",
+      href: "/standard#faq",
     })),
   ];
 }

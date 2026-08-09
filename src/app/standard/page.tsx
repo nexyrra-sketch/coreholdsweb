@@ -4,7 +4,9 @@ import { Section } from "@/components/Section";
 import { SectionIntro } from "@/components/SectionIntro";
 import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
-import { BreadcrumbSchema } from "@/components/JsonLd";
+import { BreadcrumbSchema, FaqSchema } from "@/components/JsonLd";
+import { Faq } from "@/components/Faq";
+import { faq } from "@/data/faq";
 import { standardMeta, commitments, terms } from "@/data/standard";
 
 export const metadata: Metadata = {
@@ -149,6 +151,24 @@ export default function StandardPage() {
         </div>
       </Section>
 
+      {/* ------------------------------------------------------------ faq */}
+      <Section ground="dark" id="faq">
+        <SectionIntro
+          index="03"
+          label="Questions"
+          align="wide"
+          heading="The things people ask before they trust us with this."
+          note={
+            <>
+              If the answer you need is not here, write and ask. We will add it
+              to this page rather than reply privately and leave the next person
+              guessing.
+            </>
+          }
+        />
+        <Faq items={faq} />
+      </Section>
+
       {/* ------------------------------------------------------ versioning */}
       <Section ground="raised">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -200,6 +220,7 @@ export default function StandardPage() {
         secondary={{ href: "/specimen", label: "See a worked audit" }}
       />
 
+      <FaqSchema items={faq} />
       <BreadcrumbSchema
         items={[
           { name: "Home", path: "/" },

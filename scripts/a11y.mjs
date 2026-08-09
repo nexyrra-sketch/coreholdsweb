@@ -9,6 +9,7 @@ const paths = [
   "/capabilities",
   "/audit",
   "/register",
+  "/ledger",
   "/specimen",
   "/standard",
   "/manifesto",
