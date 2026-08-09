@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArPageHeader } from "@/components/ArPageHeader";
 import { Reveal } from "@/components/Reveal";
-import { ButtonLink, Arrow } from "@/components/Button";
+import { ButtonLink, Arrow, WhatsAppGlyph } from "@/components/Button";
 import { arAudit } from "@/data/ar";
-import { site } from "@/lib/site";
+import { site, whatsappHref, whatsappOpeners } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "اطلب تدقيقًا للنظام — كورهولد، دبي",
@@ -116,7 +116,19 @@ export default function ArabicAudit() {
 
           <Reveal delay={170}>
             <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <ButtonLink href={`mailto:${site.email}`} size="lg" trailing={<Arrow className="rotate-180" />}>
+              <ButtonLink
+                href={whatsappHref(whatsappOpeners.ar)}
+                size="lg"
+                trailing={<WhatsAppGlyph />}
+              >
+                راسلنا على واتساب
+              </ButtonLink>
+              <ButtonLink
+                href={`mailto:${site.email}`}
+                size="lg"
+                variant="secondary"
+                trailing={<Arrow className="rotate-180" />}
+              >
                 {arAudit.emailCta}
               </ButtonLink>
               <Link

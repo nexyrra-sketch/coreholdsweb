@@ -6,9 +6,15 @@ import { CostMeter, CountTo } from "@/components/Counters";
 import { Magnetic } from "@/components/Magnetic";
 import { Reveal } from "@/components/Reveal";
 import { Decode } from "@/components/Decode";
-import { ButtonLink, Arrow } from "@/components/Button";
+import { ButtonLink, Arrow, WhatsAppGlyph } from "@/components/Button";
 import { stages } from "@/data/method";
-import { ctaHref, ctaLabel } from "@/lib/site";
+import {
+  ctaHref,
+  ctaLabel,
+  site,
+  whatsappHref,
+  whatsappOpeners,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
   title:
@@ -326,6 +332,24 @@ export default function HomePage() {
                     Read the manifesto
                   </ButtonLink>
                 </div>
+              </Reveal>
+              <Reveal delay={240}>
+                <p className="mt-8 font-mono text-xs leading-relaxed text-quarry-400">
+                  Or skip all of it —{" "}
+                  <a
+                    href={whatsappHref(whatsappOpeners.general)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-baseline gap-2 text-oxide transition-colors hover:text-oxide-bright"
+                  >
+                    <WhatsAppGlyph className="h-3.5 w-3.5 self-center" />
+                    <span className="latin underline underline-offset-4">
+                      {site.phoneDisplay}
+                    </span>
+                    <span className="sr-only">on WhatsApp</span>
+                  </a>{" "}
+                  on WhatsApp.
+                </p>
               </Reveal>
             </div>
 

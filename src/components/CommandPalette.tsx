@@ -6,7 +6,7 @@ import { stages } from "@/data/method";
 import { layers } from "@/data/capabilities";
 import { faq } from "@/data/faq";
 import { register as registerEntries } from "@/data/register";
-import { site } from "@/lib/site";
+import { site, whatsappHref, whatsappOpeners } from "@/lib/site";
 
 /**
  * ⌘K
@@ -109,6 +109,13 @@ function buildIndex(): Entry[] {
       href: "/audit",
     },
     {
+      id: "a-whatsapp",
+      group: "Actions",
+      label: `WhatsApp ${site.phoneDisplay}`,
+      hint: "The fastest way to reach us",
+      href: whatsappHref(whatsappOpeners.general),
+    },
+    {
       id: "a-mail",
       group: "Actions",
       label: `Email ${site.email}`,
@@ -194,6 +201,10 @@ export function CommandPalette() {
       close();
       if (entry.href.startsWith("mailto:")) {
         window.location.href = entry.href;
+      } else if (entry.href.startsWith("http")) {
+        // WhatsApp and anything else off-origin: new tab, and never hand the
+        // opener over to the destination.
+        window.open(entry.href, "_blank", "noopener,noreferrer");
       } else {
         router.push(entry.href);
       }

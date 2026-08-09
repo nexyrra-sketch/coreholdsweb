@@ -4,7 +4,8 @@ import { Section } from "@/components/Section";
 import { Reveal } from "@/components/Reveal";
 import { AuditForm } from "@/components/AuditForm";
 import { BreadcrumbSchema } from "@/components/JsonLd";
-import { site } from "@/lib/site";
+import { WhatsAppGlyph } from "@/components/Button";
+import { site, whatsappHref, whatsappOpeners } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Request a System Audit — Corehold, Dubai",
@@ -145,15 +146,31 @@ export default function AuditPage() {
                     </ul>
                   </div>
                 </div>
-                <p className="mt-8 border-t border-quarry-800 pt-6 font-mono text-xs leading-relaxed text-quarry-400">
-                  Prefer to write directly?{" "}
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="text-oxide underline underline-offset-4 transition-colors hover:text-oxide-bright"
-                  >
-                    {site.email}
-                  </a>
-                </p>
+                <div className="mt-8 border-t border-quarry-800 pt-6">
+                  <p className="font-mono text-xs leading-relaxed text-quarry-400">
+                    Prefer to skip the form?
+                  </p>
+                  <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+                    <a
+                      href={whatsappHref(whatsappOpeners.audit)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-2.5 text-[0.9375rem] text-oxide transition-colors hover:text-oxide-bright"
+                    >
+                      <WhatsAppGlyph />
+                      <span className="latin underline underline-offset-4">
+                        {site.phoneDisplay}
+                      </span>
+                      <span className="sr-only">on WhatsApp</span>
+                    </a>
+                    <a
+                      href={`mailto:${site.email}`}
+                      className="text-[0.9375rem] text-oxide underline underline-offset-4 transition-colors hover:text-oxide-bright"
+                    >
+                      {site.email}
+                    </a>
+                  </div>
+                </div>
               </div>
             </Reveal>
           </div>

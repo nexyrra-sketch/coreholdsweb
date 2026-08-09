@@ -11,8 +11,34 @@ export const site = {
   country: "AE",
   countryName: "United Arab Emirates",
   email: "audit@corehold.com",
+  /** E.164, for tel: and structured data. No spaces, no punctuation. */
+  phone: "+971503953988",
+  /** Grouped for reading. Never used as an href. */
+  phoneDisplay: "+971 50 395 3988",
   areaServed: ["United Arab Emirates", "GCC", "Worldwide"],
   founded: "2025",
+} as const;
+
+/**
+ * WhatsApp is the working channel for business in this region, so it is treated
+ * as a first-class route in rather than a floating bubble bolted to the corner.
+ * wa.me wants the number without the leading plus.
+ */
+const WA_NUMBER = site.phone.replace(/\D/g, "");
+
+export function whatsappHref(message?: string): string {
+  const base = `https://wa.me/${WA_NUMBER}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
+
+/** Openers, so the first message already says which page it came from. */
+export const whatsappOpeners = {
+  general: "Hello Corehold — I would like to talk about a system audit.",
+  audit:
+    "Hello Corehold — I would like to request a system audit for my company.",
+  ledger:
+    "Hello Corehold — I priced my stack on your ledger and would like to talk about replacing it.",
+  ar: "مرحبًا Corehold — أود التحدث بخصوص تدقيق أنظمة لشركتي.",
 } as const;
 
 export type NavItem = {

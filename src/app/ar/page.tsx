@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Section } from "@/components/Section";
 import { Reveal } from "@/components/Reveal";
-import { ButtonLink, Arrow } from "@/components/Button";
+import { ButtonLink, Arrow, WhatsAppGlyph } from "@/components/Button";
 import { Faq } from "@/components/Faq";
 import { FaqSchema } from "@/components/JsonLd";
 import { arHome, arSite, arStages } from "@/data/ar";
-import { site } from "@/lib/site";
+import { site, whatsappHref, whatsappOpeners } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "كورهولد — امتلك النظام الذي تُدار به شركتك | استوديو أنظمة في دبي",
@@ -499,8 +499,13 @@ export default function ArabicHome() {
                 <ButtonLink href={arSite.ctaHref} size="lg" trailing={<Arrow className="rotate-180" />}>
                   {arSite.cta}
                 </ButtonLink>
-                <ButtonLink href={`mailto:${site.email}`} size="lg" variant="secondary">
-                  راسلنا مباشرة
+                <ButtonLink
+                  href={whatsappHref(whatsappOpeners.ar)}
+                  size="lg"
+                  variant="secondary"
+                  trailing={<WhatsAppGlyph />}
+                >
+                  راسلنا على واتساب
                 </ButtonLink>
               </Reveal>
             </div>

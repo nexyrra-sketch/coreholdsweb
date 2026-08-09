@@ -3,9 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mark } from "./Logo";
-import { site, primaryNav, ctaHref, ctaLabel } from "@/lib/site";
+import {
+  site,
+  primaryNav,
+  ctaHref,
+  ctaLabel,
+  whatsappHref,
+  whatsappOpeners,
+} from "@/lib/site";
 import { arNav, arSite } from "@/data/ar";
-import { Arrow, ButtonLink } from "./Button";
+import { Arrow, ButtonLink, WhatsAppGlyph } from "./Button";
 
 const year = new Date().getFullYear();
 
@@ -91,6 +98,22 @@ export function SiteFooter() {
               {arabic ? "التواصل" : "Contact"}
             </h2>
             <ul className="mt-6 space-y-3.5 text-[0.9375rem] text-quarry-200">
+              <li>
+                <a
+                  href={whatsappHref(
+                    arabic ? whatsappOpeners.ar : whatsappOpeners.general,
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-oxide"
+                >
+                  <WhatsAppGlyph className="text-quarry-400 transition-colors group-hover:text-oxide" />
+                  <span className="latin">{site.phoneDisplay}</span>
+                  <span className="sr-only">
+                    {arabic ? "عبر واتساب" : "on WhatsApp"}
+                  </span>
+                </a>
+              </li>
               <li>
                 <a
                   href={`mailto:${site.email}`}

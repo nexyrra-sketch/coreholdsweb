@@ -100,6 +100,33 @@ export function Button({
   );
 }
 
+/**
+ * WhatsApp, drawn monoline in currentColor rather than dropped in as the green
+ * brand badge. The glyph is recognisable enough on its own, and a saturated
+ * green bubble would be the only thing on this site not made of the palette.
+ */
+export function WhatsAppGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className={`h-4 w-4 shrink-0 ${className ?? ""}`}
+    >
+      <path
+        d="M2.2 13.8 3.1 10.6A6 6 0 1 1 5.4 12.9L2.2 13.8Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.1 5.4c.5 0 .6.1.8.6l.3.8c.1.2 0 .4-.1.5l-.3.3c-.1.2-.2.3 0 .5a5 5 0 0 0 1.9 1.5c.2.1.3 0 .4-.1l.4-.4c.2-.2.3-.2.5-.1l1 .5c.2.1.3.3.2.6-.1.6-.7 1.1-1.4 1.1-1.4 0-4-2.5-4-4.2 0-.8.4-1.4 1-1.5h-.7Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 /** The one arrow used across the site: a short, flat trajectory. */
 export function Arrow({ className }: { className?: string }) {
   return (

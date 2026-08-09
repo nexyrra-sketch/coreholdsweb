@@ -22,6 +22,17 @@ export function OrganizationSchema() {
         legalName: site.legalName,
         url: site.url,
         email: site.email,
+        telephone: site.phone,
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            contactType: "sales",
+            telephone: site.phone,
+            email: site.email,
+            availableLanguage: ["en", "ar"],
+            areaServed: site.country,
+          },
+        ],
         slogan: site.tagline,
         description: site.shortDescription,
         foundingDate: site.founded,

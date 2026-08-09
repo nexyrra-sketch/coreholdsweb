@@ -12,7 +12,7 @@ export const measured = {
   nextVersion: "15.5",
   reactVersion: "19.2",
   sharedJs: "103 kB",
-  heaviestRoute: { path: "/ledger", value: "116 kB" },
+  heaviestRoute: { path: "/ledger", value: "117 kB" },
   lightestRoute: { path: "/ar", value: "107 kB" },
   runtimeDependencies: 3,
   totalDependencies: 3,

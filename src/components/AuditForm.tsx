@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Button, Arrow } from "./Button";
 import { Mark } from "./Logo";
+import { site, whatsappHref, whatsappOpeners } from "@/lib/site";
 
 /**
  * The UI, validation, states and confirmation flow are complete and real, and
@@ -289,11 +290,20 @@ export function AuditForm() {
 
       {state === "error" && (
         <p role="alert" className="font-mono text-sm text-oxide-bright">
-          Something went wrong sending that. Email {""}
-          <a className="underline" href="mailto:audit@corehold.com">
-            audit@corehold.com
+          Something went wrong sending that. Message{" "}
+          <a
+            className="underline"
+            href={whatsappHref(whatsappOpeners.audit)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {site.phoneDisplay}
           </a>{" "}
-          and we will pick it up from there.
+          on WhatsApp, or email{" "}
+          <a className="underline" href={`mailto:${site.email}`}>
+            {site.email}
+          </a>
+          , and we will pick it up from there.
         </p>
       )}
     </form>
