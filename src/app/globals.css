@@ -1,0 +1,738 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   COREHOLD DESIGN SYSTEM
+   ----------------------------------------------------------------------------
+   Palette rationale:
+   QUARRY   — the ground. A mineral near-black with a green-grey cast. Not blue
+              (the default tech tell), not pure black (fashion). It reads as cut
+              stone and cured concrete: material, permanent, load-bearing.
+   LIMESTONE— the light ground. A warm bone paper, the colour of drawing sheets
+              and title deeds. Used for the sections that argue and document.
+   OXIDE    — the only accent. Iron oxide: rebar primer, survey paint, the mark
+              a site engineer leaves on a structure. Applied sparingly and only
+              to load-bearing elements — the thing that acts, the number that
+              matters, the state that is live.
+   There is no gradient in this system. Gradients imply transition; Corehold
+   sells permanence.
+   ========================================================================== */
+
+@theme {
+  --color-quarry-950: #0b0d0c;
+  --color-quarry-900: #101312;
+  --color-quarry-850: #141817;
+  --color-quarry-800: #191e1c;
+  --color-quarry-700: #232927;
+  --color-quarry-600: #313835;
+  --color-quarry-500: #7a827d;
+  --color-quarry-400: #949b95;
+  --color-quarry-300: #aeb4af;
+  --color-quarry-200: #c9cdc8;
+
+  --color-bone: #e8e7e1;
+  --color-limestone: #efede8;
+  --color-limestone-dim: #ddd9d1;
+  --color-limestone-line: #cbc6bc;
+
+  --color-oxide: #d9622b;
+  --color-oxide-deep: #a8461b;
+  --color-oxide-bright: #ee7a41;
+
+  --font-display: var(--font-archivo), "Archivo", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace,
+    SFMono-Regular, Menlo, Consolas, monospace;
+
+  --spacing-gutter: 1.5rem;
+
+  --text-mega: clamp(2.75rem, 7.4vw, 6.5rem);
+  --text-mega--line-height: 0.92;
+  --text-mega--letter-spacing: -0.035em;
+
+  --text-major: clamp(2rem, 4.6vw, 3.75rem);
+  --text-major--line-height: 0.98;
+  --text-major--letter-spacing: -0.03em;
+
+  --text-minor: clamp(1.5rem, 2.6vw, 2.25rem);
+  --text-minor--line-height: 1.08;
+  --text-minor--letter-spacing: -0.022em;
+
+  --text-lede: clamp(1.0625rem, 1.55vw, 1.3125rem);
+  --text-lede--line-height: 1.55;
+  --text-lede--letter-spacing: -0.011em;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.16em;
+
+  --ease-structural: cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+
+/* ---------------------------------------------------------------- base ---- */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-quarry-950);
+    color: var(--color-bone);
+    font-family: var(--font-display);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-oxide);
+    color: var(--color-quarry-950);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Focus: a drawn bracket, not a browser ring. Visible on every ground. */
+  :focus-visible {
+    outline: 2px solid var(--color-oxide);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  [data-ground="light"] :focus-visible {
+    outline-color: var(--color-oxide-deep);
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Firefox / Safari number-input normalisation */
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  ::placeholder {
+    color: var(--color-quarry-500);
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------- primitives ---- */
+
+@utility shell {
+  width: 100%;
+  max-width: 84rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .shell {
+    padding-inline: 3.5rem;
+  }
+}
+
+/* The technical label: sheet numbers, stage codes, field names. */
+@utility tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Hairline rules — the drawing sheet. */
+@utility rule-x {
+  border-top: 1px solid color-mix(in srgb, var(--color-quarry-200) 14%, transparent);
+}
+
+@utility rule-y {
+  border-left: 1px solid color-mix(in srgb, var(--color-quarry-200) 14%, transparent);
+}
+
+/* ----------------------------------------------------------- grid film ---- */
+/* A faint structural grid. Renders identically in every engine: no masks that
+   Safari treats differently, no filters that Firefox rasterises. */
+
+.gridfilm {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-quarry-200) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-quarry-200) 5%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 88px 88px;
+}
+
+.gridfilm--light {
+  background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, #4a3f2f 9%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, #4a3f2f 6%, transparent) 1px,
+      transparent 1px
+    );
+}
+
+/* ------------------------------------------------------------- reveals ---- */
+/* Structural reveal: elements are scribed into place — they rise a short,
+   even distance and resolve. Nothing bounces, nothing scales, nothing blurs. */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 0.72s var(--ease-structural),
+    transform 0.72s var(--ease-structural);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* A rule that draws itself left-to-right. */
+[data-scribe] {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s var(--ease-structural);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-scribe="in"] {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal],
+  [data-scribe] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -------------------------------------------------------------- motion ---- */
+
+@keyframes corehold-datum {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.datum-pulse {
+  animation: corehold-datum 3.6s var(--ease-structural) infinite;
+}
+
+@keyframes corehold-settle {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.settle {
+  animation: corehold-settle 0.9s var(--ease-structural) both;
+}
+
+/* ---------------------------------------------------------------- rtl ---- */
+/* The Arabic edition is not the English one flipped. Arabic script joins, so it
+   must never be tracked — every letter-spaced class in this system is
+   neutralised here, the display sizes are reset to normal spacing, and leading
+   is opened up because Arabic carries taller ascenders and deeper descenders
+   than Latin at the same optical size. */
+
+[dir="rtl"] {
+  font-family: var(--font-arabic), var(--font-display);
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] p,
+[dir="rtl"] li,
+[dir="rtl"] span,
+[dir="rtl"] a,
+[dir="rtl"] dt,
+[dir="rtl"] dd {
+  letter-spacing: normal;
+}
+
+[dir="rtl"] .tag {
+  font-family: var(--font-arabic), var(--font-mono);
+  letter-spacing: normal;
+  text-transform: none;
+  font-size: 0.8125rem;
+}
+
+[dir="rtl"] .type-settle,
+[dir="rtl"] .type-land {
+  font-variation-settings: normal;
+  letter-spacing: normal;
+  animation: none;
+  transition: none;
+}
+
+[dir="rtl"] .text-mega,
+[dir="rtl"] .text-major {
+  line-height: 1.18;
+}
+
+[dir="rtl"] .text-minor {
+  line-height: 1.35;
+}
+
+[dir="rtl"] .text-lede {
+  line-height: 1.85;
+}
+
+/* Latin fragments inside Arabic prose keep their own face and direction. */
+[dir="rtl"] .latin {
+  font-family: var(--font-mono);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ------------------------------------------------------ variable type ---- */
+/* Archivo ships a continuous weight axis, and headlines use it: a statement
+   arrives fractionally light and loose, then gains weight and tightens as it
+   settles. It is the difference between text appearing and text landing.
+   Nothing here touches opacity, so it never delays a largest-contentful paint.
+
+   We ship the weight axis only. The width axis would have cost a second 35 kB
+   file for a subtler effect, and the budget on /system is not decorative. */
+
+.type-settle {
+  font-variation-settings: "wght" 470;
+  letter-spacing: -0.010em;
+  transition:
+    font-variation-settings 1s var(--ease-structural),
+    letter-spacing 1s var(--ease-structural);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="in"] .type-settle {
+  font-variation-settings: "wght" 600;
+  letter-spacing: -0.032em;
+}
+
+@keyframes type-land {
+  from {
+    font-variation-settings: "wght" 470;
+    letter-spacing: -0.010em;
+  }
+  to {
+    font-variation-settings: "wght" 600;
+    letter-spacing: -0.032em;
+  }
+}
+
+.type-land {
+  animation: type-land 1.15s var(--ease-structural) 0.1s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .type-settle,
+  .type-land {
+    font-variation-settings: "wght" 600 !important;
+    letter-spacing: -0.032em !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------------------------------- living hero -- */
+/* The hero diagram is never quite still: the brackets carry load, and load is
+   never perfectly static. ±1.5px over eight seconds — felt rather than seen. */
+
+@keyframes bear-load {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 1.6px, 0);
+  }
+}
+
+@keyframes bear-load-inverse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -1.6px, 0);
+  }
+}
+
+.bearing-a {
+  animation: bear-load 8s var(--ease-structural) infinite;
+}
+
+.bearing-b {
+  animation: bear-load-inverse 8s var(--ease-structural) infinite;
+}
+
+.parallax {
+  transition: transform 0.9s var(--ease-structural);
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------------- boot ---- */
+
+@keyframes boot-draw {
+  from {
+    stroke-dashoffset: 24;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.boot-bracket {
+  stroke-dasharray: 24;
+  animation: boot-draw 0.5s var(--ease-structural) both;
+}
+
+@keyframes boot-seat {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.boot-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: boot-seat 0.55s var(--ease-structural) 0.44s both;
+}
+
+@keyframes boot-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.boot-line {
+  animation: boot-in 0.45s var(--ease-structural) both;
+}
+
+@keyframes boot-grid-in {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.boot-grid {
+  animation: boot-grid-in 0.9s var(--ease-structural) both;
+}
+
+/* ------------------------------------------------------ route transition -- */
+
+@keyframes sweep {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  45% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  55% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+.route-sweep {
+  animation: sweep 0.62s var(--ease-structural) both;
+}
+
+/* ------------------------------------------------------------- reticle ---- */
+
+.reticle {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-structural);
+}
+
+.reticle[data-live="true"] {
+  opacity: 1;
+}
+
+.reticle .rx,
+.reticle .ry {
+  position: absolute;
+  background: var(--color-quarry-200);
+  opacity: 0.055;
+}
+
+.reticle .rx {
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.reticle .ry {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+/* --------------------------------------------------------- components ---- */
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Comparison table — a drawing sheet on desktop, stacked records on mobile.
+   One DOM, no duplicated content, semantics intact at every width. */
+
+.cmp table {
+  width: 100%;
+}
+
+.cmp thead {
+  display: none;
+}
+
+.cmp tbody tr {
+  display: block;
+  padding-block: 1.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-quarry-200) 14%, transparent);
+}
+
+.cmp tbody tr:first-child {
+  border-top-width: 1px;
+}
+
+.cmp tbody th {
+  display: block;
+  padding-bottom: 1rem;
+}
+
+.cmp tbody td {
+  display: block;
+  padding-block: 0.5rem;
+}
+
+.cmp tbody td::before {
+  content: attr(data-col);
+  display: block;
+  margin-bottom: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-quarry-500);
+}
+
+.cmp tbody td[data-col="Owned"]::before {
+  color: var(--color-oxide);
+}
+
+/* The register uses the same responsive-table technique as the comparison. */
+
+.reg thead {
+  display: none;
+}
+
+.reg tbody tr {
+  display: block;
+  padding-block: 1.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-quarry-200) 14%, transparent);
+}
+
+.reg tbody th {
+  display: block;
+  padding-bottom: 0.75rem;
+}
+
+.reg tbody td {
+  display: block;
+  padding-block: 0.375rem;
+}
+
+.reg tbody td::before {
+  content: attr(data-col);
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-quarry-500);
+}
+
+@media (min-width: 1024px) {
+  .reg thead {
+    display: table-header-group;
+  }
+
+  .reg tbody tr {
+    display: table-row;
+    padding-block: 0;
+  }
+
+  .reg tbody th,
+  .reg tbody td {
+    display: table-cell;
+    padding: 1.5rem 2rem 1.5rem 0;
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-quarry-200) 14%, transparent);
+  }
+
+  .reg tbody td:last-child {
+    padding-right: 0;
+  }
+
+  .reg tbody td::before {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .cmp thead {
+    display: table-header-group;
+  }
+
+  .cmp tbody tr {
+    display: table-row;
+    padding-block: 0;
+  }
+
+  .cmp tbody th,
+  .cmp tbody td {
+    display: table-cell;
+    padding: 1.5rem 2.5rem 1.5rem 0;
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-quarry-200) 14%, transparent);
+  }
+
+  .cmp tbody td:last-child {
+    padding-right: 0;
+  }
+
+  .cmp tbody td::before {
+    display: none;
+  }
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 100;
+  background: var(--color-oxide);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: top 0.2s var(--ease-structural);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
