@@ -790,3 +790,29 @@
 .skip-link:focus {
   top: 1rem;
 }
+
+/* ---------------------------------------------------------------- sound --- */
+/*
+ * The three bars in the sound toggle. Height only, so the browser animates a
+ * property it can do cheaply and the row never reflows.
+ */
+.sound-bar {
+  height: 3px;
+  animation: sound-bar 1.15s ease-in-out infinite alternate;
+}
+
+@keyframes sound-bar {
+  from {
+    height: 3px;
+  }
+  to {
+    height: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-bar {
+    animation: none;
+    height: 9px;
+  }
+}

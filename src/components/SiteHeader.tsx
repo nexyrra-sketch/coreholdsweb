@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SoundToggle } from "./SoundToggle";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { ButtonLink, Arrow } from "./Button";
@@ -112,6 +113,7 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-6 md:flex">
+            <SoundToggle />
             <Link
               href={language.href}
               lang={arabic ? "en" : "ar"}

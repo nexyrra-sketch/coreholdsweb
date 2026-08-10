@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { Section } from "@/components/Section";
 import { SectionIntro } from "@/components/SectionIntro";
+import { ShaderLab } from "@/components/ShaderLab";
 import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
 import { LiveVitals } from "@/components/LiveVitals";
@@ -141,7 +142,7 @@ export default function SystemPage() {
           index="03"
           label="Decisions"
           align="wide"
-          heading="Eight choices, and why each one went that way."
+          heading="Thirteen choices, and why each one went that way."
           lede={
             <>
               An audit report is only useful if it shows its reasoning. The same
@@ -178,10 +179,39 @@ export default function SystemPage() {
         </div>
       </Section>
 
+      {/* ------------------------------------------------------ shader lab -- */}
+      <Section ground="raised">
+        <SectionIntro
+          index="04"
+          label="The source, running"
+          align="wide"
+          heading="The shader the mark is carved from. Edit it here."
+          lede={
+            <>
+              The home page carves the mark out of a block of stone by
+              raymarching a signed distance field. Below is that field&apos;s
+              actual source, in a live WebGL2 context. Change it, press compile,
+              and both the preview and the carve on the home page run your
+              version for the rest of the session.
+            </>
+          }
+          note={
+            <>
+              Nothing you do here can reach anybody else&apos;s browser. A reload
+              restores the published build.
+            </>
+          }
+        />
+
+        <Reveal className="mt-14">
+          <ShaderLab />
+        </Reveal>
+      </Section>
+
       {/* ---------------------------------------------------------- tokens -- */}
       <Section ground="dark">
         <SectionIntro
-          index="04"
+          index="05"
           label="Tokens"
           align="wide"
           heading="The whole design system, published."
@@ -242,7 +272,7 @@ export default function SystemPage() {
       {/* ---------------------------------------------------------- verify -- */}
       <Section ground="raised">
         <SectionIntro
-          index="05"
+          index="06"
           label="Verify it"
           align="wide"
           heading="Don't take the numbers on trust."

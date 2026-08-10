@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CoreScene } from "@/components/CoreScene";
+import { World } from "@/components/World";
 import { LandlordSwitch } from "@/components/LandlordSwitch";
 import { CostMeter, CountTo } from "@/components/Counters";
 import { Magnetic } from "@/components/Magnetic";
@@ -71,7 +71,7 @@ function Tag({ index, label }: { index: string; label: string }) {
 export default function HomePage() {
   return (
     <>
-      <CoreScene stageId="stage" />
+      <World stageId="stage" />
 
       {/* ============================================ THE CINEMATIC STAGE == */}
       <div id="stage" className="relative">

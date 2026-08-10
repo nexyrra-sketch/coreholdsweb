@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { playDrop } from "@/lib/audio";
 import { usePrefersReducedMotion } from "@/lib/motion";
 
 /**
@@ -51,6 +52,7 @@ export function LandlordSwitch() {
     }
 
     setKilled(true);
+    playDrop();
 
     if (reduced) {
       setStep(ROWS.length + 1);
