@@ -21,14 +21,14 @@ export const measured = {
   thirdPartyRequests: 0,
   cookies: 0,
   trackers: 0,
-  images: 1,
+  images: 2,
   audioFiles: 0,
   particles: 200_000,
   renderPasses: 6,
   prerenderedRoutes: 22,
   axeViolations: 0,
   axeRuleSets: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"],
-  axePages: 18,
+  axePages: 19,
   axeViewports: ["1440px", "390px"],
 } as const;
 
@@ -56,7 +56,7 @@ export const budgets: [string, string, string][] = [
   [
     "Raster images in the layout",
     `${measured.images}`,
-    "One: the Open Graph card, which never loads in the page. Every mark, diagram and chart is vector or canvas.",
+    "The Open Graph card, which never loads in the page, and one portrait on the contact card. Every mark, diagram, chart and QR code is vector or canvas.",
   ],
   [
     "The homepage, in full",
@@ -96,6 +96,14 @@ export const decisions: [string, string][] = [
   [
     "A film pass, not a filter",
     "Motion blur is sampled along a real per-pixel velocity vector written by the geometry pass, not faked with a trailing ghost. Depth of field reads the same buffer's linear depth. Bloom and the out-of-focus field share one blurred copy of the frame rather than two, which is where most of the cost of a post chain usually goes.",
+  ],
+  [
+    "A QR encoder, written here",
+    "The code on the contact card is computed in the visitor's browser: byte-mode encoding, Reed-Solomon error correction over GF(256), block interleaving, the zigzag module walk, and all eight masks scored against the specification's four penalty rules. It is set to the highest correction level so the mark can be punched through the middle and it still scans. Every product that sells this as a subscription is renting out about four hundred lines.",
+  ],
+  [
+    "The contact card is a page we own",
+    "It lives on our own domain rather than on a card platform, so it cannot be switched off by somebody else's business decision. The vCard a visitor saves is generated from the same object the page renders from, so a number can never be right in one place and stale in the other.",
   ],
   [
     "Sound with no audio files",

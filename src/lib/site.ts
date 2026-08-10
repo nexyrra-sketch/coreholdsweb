@@ -1,8 +1,8 @@
 export const site = {
   name: "Corehold",
   legalName: "Corehold",
-  domain: "corehold.com",
-  url: "https://corehold.com",
+  domain: "corehold.systems",
+  url: "https://corehold.systems",
   tagline: "Own the system your business runs on. Stop renting it.",
   shortDescription:
     "Corehold is an intelligent systems studio in Dubai. We replace stacks of rented software with one owned system — operations, intelligence, automation and internal tools — and hand over the code, the data and the documentation outright.",

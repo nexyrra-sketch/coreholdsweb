@@ -20,6 +20,7 @@ const routes: Route[] = [
   { path: "/audit", priority: 0.8, changeFrequency: "yearly", ar: "/ar/audit" },
   { path: "/standard", priority: 0.8, changeFrequency: "monthly" },
   { path: "/manifesto", priority: 0.7, changeFrequency: "yearly" },
+  { path: "/card", priority: 0.7, changeFrequency: "yearly" },
   { path: "/brand", priority: 0.6, changeFrequency: "monthly" },
   { path: "/system", priority: 0.6, changeFrequency: "monthly" },
 ];

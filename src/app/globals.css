@@ -816,3 +816,183 @@
     height: 9px;
   }
 }
+
+/* ------------------------------------------------------------ the card ---- */
+/*
+ * The contact card behaves like an object: a perspective container, a surface
+ * that rotates under the pointer or the phone's own accelerometer, and a
+ * highlight that travels across the face the opposite way — which is what a
+ * real specular reflection does.
+ */
+.card-perspective {
+  perspective: 1400px;
+  perspective-origin: 50% 40%;
+}
+
+.card-surface {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 120ms linear;
+}
+
+.card-face {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-quarry-800);
+  background:
+    linear-gradient(158deg, #141817 0%, #0d100f 46%, #101413 100%);
+  box-shadow:
+    0 1px 0 0 rgb(232 231 225 / 0.045) inset,
+    0 40px 90px -50px rgb(0 0 0 / 0.9);
+}
+
+.card-glow {
+  position: absolute;
+  inset: -45%;
+  pointer-events: none;
+  opacity: 0.3;
+  background: radial-gradient(
+    42% 42% at 50% 50%,
+    rgb(232 231 225 / 0.14) 0%,
+    rgb(217 98 43 / 0.07) 38%,
+    transparent 72%
+  );
+  will-change: transform;
+}
+
+.card-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-quarry-800) 12%,
+    var(--color-quarry-800) 88%,
+    transparent
+  );
+}
+
+/* The portrait, graded into the palette rather than dropped in raw. */
+.card-portrait {
+  position: relative;
+  width: 8.5rem;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--color-quarry-800);
+  background: var(--color-quarry-900);
+}
+
+@media (min-width: 640px) {
+  .card-portrait {
+    width: 9.5rem;
+  }
+}
+
+.card-portrait img {
+  filter: grayscale(0.55) contrast(1.06) brightness(0.94);
+}
+
+.card-portrait-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 40%, rgb(11 13 12 / 0.55) 100%),
+    linear-gradient(135deg, rgb(217 98 43 / 0.13), transparent 62%);
+  mix-blend-mode: screen;
+}
+
+/* One pass of a scan line across the portrait as it arrives. */
+.card-scan {
+  position: absolute;
+  inset-inline: 0;
+  height: 34%;
+  top: -34%;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(217 98 43 / 0.22) 55%,
+    rgb(232 231 225 / 0.16) 78%,
+    transparent
+  );
+  animation: card-scan 1.5s cubic-bezier(0.22, 0.68, 0.24, 1) 0.35s 1 both;
+}
+
+@keyframes card-scan {
+  from {
+    top: -34%;
+  }
+  to {
+    top: 104%;
+  }
+}
+
+/* Rows arrive on the structural curve, staggered by an inline delay. */
+.card-in {
+  animation: card-in 0.72s cubic-bezier(0.22, 0.68, 0.24, 1) both;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card-action {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--color-quarry-800);
+  background: var(--color-quarry-900);
+  color: var(--color-quarry-200);
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  transition:
+    border-color 200ms cubic-bezier(0.22, 0.68, 0.24, 1),
+    background-color 200ms cubic-bezier(0.22, 0.68, 0.24, 1),
+    color 200ms cubic-bezier(0.22, 0.68, 0.24, 1),
+    transform 200ms cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+
+.card-action:hover {
+  border-color: var(--color-quarry-600);
+  background: #151a18;
+  color: var(--color-bone);
+  transform: translateY(-1px);
+}
+
+.card-action-primary {
+  border-color: transparent;
+  background: var(--color-oxide);
+  color: var(--color-quarry-950);
+  font-weight: 600;
+}
+
+.card-action-primary:hover {
+  border-color: transparent;
+  background: var(--color-oxide-bright);
+  color: var(--color-quarry-950);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-surface,
+  .card-action {
+    transition: none;
+  }
+  .card-in,
+  .card-scan {
+    animation: none;
+  }
+  .card-scan {
+    display: none;
+  }
+  .card-action:hover {
+    transform: none;
+  }
+}

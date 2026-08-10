@@ -142,7 +142,7 @@ export default function SystemPage() {
           index="03"
           label="Decisions"
           align="wide"
-          heading="Thirteen choices, and why each one went that way."
+          heading="Fifteen choices, and why each one went that way."
           lede={
             <>
               An audit report is only useful if it shows its reasoning. The same

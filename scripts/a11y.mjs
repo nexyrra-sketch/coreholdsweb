@@ -13,6 +13,7 @@ const paths = [
   "/specimen",
   "/standard",
   "/manifesto",
+  "/card",
   "/brand",
   "/system",
   "/ar",
